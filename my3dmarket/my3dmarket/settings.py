@@ -27,7 +27,7 @@ SECRET_KEY = 'jango-insecure-qg5qrzg5t+ddysg@6xfbzi3p%$9yf%vueu2a(s((d6xqm-2=$g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = []
 
 
 # Application definition
