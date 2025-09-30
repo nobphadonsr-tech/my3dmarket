@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jango-insecure-qg5qrzg5t+ddysg@6xfbzi3p%$9yf%vueu2a(s((d6xqm-2=$g'
+SECRET_KEY = 'django-insecure-qg5qrzg5t+ddysg@6xfbzi3p%$9yf%vueu2a(s((d6xqm-2=$g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['my3dmarket.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','my3dmarket.onrender.com']
 
 
 # Application definition

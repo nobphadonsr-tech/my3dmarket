@@ -3,7 +3,9 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>3D Super Market</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +39,7 @@
             top: 20px;
             left: 20px;
             color: white;
-            background: rgba(16, 79, 151, 0.7);
+            background: #0000007e;
             padding: 15px;
             border-radius: 10px;
             z-index: 100;
@@ -46,8 +48,8 @@
         
         #controls {
             position: absolute;
-            bottom: 50px;
-            left: 500px;
+            bottom: 5%;
+            left: 5%;
             color: white;
             background: rgba(0,0,0,0.7);
             padding: 15px;
@@ -88,7 +90,7 @@
         }
                 
         .stats {
-            font-size: 12px;
+            font-size: 18px;
             margin-top: 10px;
         }
 
@@ -120,7 +122,7 @@
         }
 
         .product-name {
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .add-to-cart-btn {
@@ -137,7 +139,113 @@
         .add-to-cart-btn:hover {
             background: #0056b3;
         }
+        audio {
+            width: 300px;
+            height: 100px;
+            position: fixed;
+            bottom: 6%;
+            left: 50%;
+        }
+        /* เพิ่ม Media Queries สำหรับมือถือ */
+        @media only screen and (max-width: 768px) {
+            #info {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                padding: 10px;
+                font-size: 14px;
+            }
 
+            h3 {
+                font-size: 18px;
+            }
+
+            .stats {
+                font-size: 14px;
+            }
+
+            #controls {
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 90%;
+                max-width: 400px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 12px;
+                margin: 3px;
+                min-width: 80px;
+            }
+
+            #shopping-menu {
+                width: 90%;
+                max-width: 350px;
+                padding: 15px;
+            }
+
+            .product-name {
+                font-size: 14px;
+            }
+
+            .add-to-cart-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+
+            audio {
+                width: 200px;
+                height: 40px;
+                bottom: 15%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            /* เพิ่ม Touch Events Support */
+            * {
+                touch-action: manipulation;
+            }
+
+            /* ปรับขนาดปุ่มให้ใหญ่ขึ้นบนมือถือ */
+            .add-to-cart-btn,
+            .checkout-btn,
+            #continue-btn,
+            #goto-cashier-btn {
+                min-height: 44px;
+                padding: 12px 20px;
+            }
+        }
+
+        /* สำหรับหน้าจอขนาดเล็กมาก */
+        @media only screen and (max-width: 320px) {
+            #info {
+                padding: 8px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+
+            .stats {
+                font-size: 12px;
+            }
+
+            button {
+                padding: 6px 12px;
+                font-size: 11px;
+                margin: 2px;
+            }
+        }
+
+        /* ป้องกันการซูมบนมือถือ */
+        @viewport {
+            width: device-width;
+            zoom: 1.0;
+        }
     </style>
 </head>
 <body>
@@ -181,16 +289,17 @@
         // สินค้าอุปกรณ์ไฟฟ้า
         const productsList = [
             { name: "โคมไฟ", price: 159, color: 0xcccccc, shelfId: 1 },
-            { name: "สายไฟ", price: 89, color: 0xff6600, shelfId: 2 },
-            { name: "สวิตช์ช้าง", price: 19, color: 0x00ffcc, shelfId: 3 },
-            { name: "หลอดไฟ LED", price: 199, color: 0xffff00, shelfId: 4 },
-            { name: "อุปกรณ์ท่อ", price: 230, color: 0x00ffcc, shelfId: 5 },
-            { name: "ปลั๊กไฟ", price: 159, color: 0xcccccc, shelfId: 6 },
-            { name: "สายไฟ", price: 69, color: 0xff6600, shelfId: 7 },
-            { name: "สวิตช์ช้าง", price: 19, color: 0x00ffcc, shelfId: 8 },
-            { name: "หลอดไฟ LED", price: 199, color: 0xffff00, shelfId: 9 },
-            { name: "ปลั๊กไฟ", price: 159, color: 0xcccccc, shelfId: 10 },
-            { name: "สายไฟ", price: 299, color: 0xff6600, shelfId: 11 }
+            { name: "โคมไฟฉุกเฉิน Plus Three", price: 159, color: 0xcccccc, shelfId: 1 },
+            { name: "Solar Cell", price: 2990, color: 0x1a237e, shelfId: 2 },
+            { name: "สายไฟ 1 m", price: 89, color: 0xff6600, shelfId: 3 },
+            { name: "สวิตช์ช้าง 2 ตา", price: 19, color: 0x00ffcc, shelfId: 4 },
+            { name: "หลอดไฟ LED 50 ซ.", price: 199, color: 0xffff00, shelfId: 5 },
+            { name: "อุปกรณ์ท่อ", price: 230, color: 0x00ffcc, shelfId: 6 },
+            { name: "ปลั๊กไฟ 2 ช่อง", price: 129, color: 0xcccccc, shelfId: 7 },
+            { name: "สายไฟ 1 m", price: 69, color: 0xff6600, shelfId: 8 },
+            { name: "สวิตช์ช้าง 3 ตา", price: 29, color: 0x00ffcc, shelfId: 9 },
+            { name: "หลอดไฟ LED", price: 250, color: 0xffff00, shelfId: 10 },
+            { name: "ปลั๊กไฟ 3 ช่อง", price: 159, color: 0xcccccc, shelfId: 11 },
         ];
 
         let cart = [];
@@ -210,8 +319,8 @@
                 { id: 7, x: -4, z: 2, width: 3, height: 1.5, depth: 0.8 },
                 { id: 8, x: 4, z: 2, width: 3, height: 1.5, depth: 0.8 },
                 { id: 9, x: 2, z: 5.5, width: 6, height: 1.5, depth: 0.8 },
-                { id: 10, x: -4, z: 5.5, width: 3, height: 1.5, depth: 0.8 }
-                //{ id: 11, x: 9.5, z: 2, width: 0.8, height: 1, depth: 4 }
+                { id: 10, x: -4, z: 5.5, width: 3, height: 1.5, depth: 0.8 },
+                { id: 11, x: 10, z: 2, width: 0.1, height: 0.1, depth: 0.1 }
             ]
         };
         
@@ -219,20 +328,21 @@
         const movementPath = [
             { x: -8, z: 5.5, shelfId: null },// IN
             { x: -8, z: 0, shelfId: 1 },
-            { x: -8, z: -4, shelfId: null },
-            { x: -4, z: -4, shelfId: 2 },
-            { x: -0, z: -4, shelfId: 3 },
-            { x: 4, z: -4, shelfId: 4 },
-            { x: 8, z: -4, shelfId: 5 },
+            { x: -8, z: -4, shelfId: 2 },
+            { x: -4, z: -4, shelfId: 3 },
+            { x: -0, z: -4, shelfId: 4 },
+            { x: 4, z: -4, shelfId: 5 },
+            { x: 8, z: -4, shelfId: 6 },
             { x: 8, z: 0, shelfId: null },
-            { x: 2, z: 0, shelfId: 6 },
-            { x: -4, z: 0, shelfId: 7 },
+            { x: 2, z: 0, shelfId: 7 },
+            { x: -4, z: 0, shelfId: 8 },
             { x: -7, z: 0, shelfId: null },
             { x: -7, z: 4, shelfId: null },
-            { x: -4, z: 4, shelfId: 8 },
-            { x: 0, z: 4, shelfId: 9 },
-            { x: 4, z: 4, shelfId: 10 },
-            { x: 8, z: 2, shelfId: 'cashier' }, // Go to cashier 
+            { x: -4, z: 4, shelfId: 9 },
+            { x: 0, z: 4, shelfId: 10 },
+            { x: 4, z: 4, shelfId: 11 },
+            { x: 7.9, z: 2, shelfId: 'cashier' }, // Go to cashier
+            { x: 8, z: 2, shelfId: null },
             { x: 8, z: 5.5, shelfId: null }// OUT
         ];
 
@@ -240,8 +350,21 @@
         function init() {
             // Create scene
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x008ae6);
+            /*// ใช้ TextureLoader สำหรับโหลดรูปภาพ
+            const textureLoader = new THREE.TextureLoader();
+            const bgTexture = textureLoader.load('{% static "images/backgrounds/worldmap.jpg" %}'); // เปลี่ยนเป็นพาธของรูปภาพของคุณ
+            scene.background = bgTexture;
+
+            // หากต้องการปรับขนาดให้พอดีกับฉาก
+            bgTexture.mapping = THREE.EquirectangularReflectionMapping;
+
+            // หากต้องการปรับความเข้มของหมอก
+            scene.fog = new THREE.Fog(0xffffff, 50, 100);
+            
+            scene = new THREE.Scene();*/
+            scene.background = new THREE.Color(0xE0E0E0);
             scene.fog = new THREE.Fog(0xf0f0f0, 50, 100);
+            
             
             // Create camera
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -263,7 +386,7 @@
             audioControls.style.right = '20px';
             audioControls.style.zIndex = '100';
             audioControls.innerHTML = `
-                <audio id="storeAudio" controls>
+                <audio class="storeAudio" id="storeAudio" controls>
                     <source src="{% static 'sounds/download.mp3' %}" type="audio/mp3">
                     Your browser does not support the audio element.
                 </audio>
@@ -284,6 +407,7 @@
             createPipelineWhite();
             createLighting();
             createCounter();
+            createSolarCell();
 
             // Setup controls
             setupControls();
@@ -392,7 +516,7 @@
                 const geometry = new THREE.CylinderGeometry(0.1, 0.1, 3, 64);
                 
                 // โหลดเทคซ์เจอร์
-                const texture = textureLoader.load('https://i.ibb.co/HLg9p4Tp/pipeend-yl.png'); // เปลี่ยนเป็นชื่อไฟล์ของคุณ
+                const texture = textureLoader.load('{% static "images/layout/pipeend_yl.png" %}'); // เปลี่ยนเป็นชื่อไฟล์ของคุณ
                 const material = new THREE.MeshBasicMaterial({ 
                     map: texture,
                     color: 0xffff00,
@@ -427,7 +551,7 @@
                 const geometry = new THREE.CylinderGeometry(0.1, 0.1, 3, 64);
                 
                 // โหลดเทคซ์เจอร์
-                const texture = textureLoader.load('https://i.ibb.co/qYgnJ3md/pipeend-w.png'); // เปลี่ยนเป็นชื่อไฟล์ของคุณ
+                const texture = textureLoader.load('{% static "images/layout/pipeend_w.png" %}'); // เปลี่ยนเป็นชื่อไฟล์ของคุณ
                 const material = new THREE.MeshBasicMaterial({ 
                     map: texture,
                     color: 0xffffff,
@@ -460,7 +584,7 @@
 
             // เพิ่มรูปภาพด้านขวา
             const sideGeometry = new THREE.PlaneGeometry(6, 3); // ขนาดตามความสูงและความยาวของโต๊ะ
-            const sideTexture = textureLoader.load('https://i.ibb.co/d4Y03tVf/Gemini-Generated-Image-mh2bidmh2bidmh2b.png');
+            const sideTexture = textureLoader.load('{% static "images/layout/Gemini_Generated_Image_mh2bidmh2bidmh2b.png" %}');
             const sideMaterial = new THREE.MeshBasicMaterial({
                 map: sideTexture,
                 transparent: true,
@@ -469,11 +593,97 @@
 
             // ด้านขวา
             const rightMesh = new THREE.Mesh(sideGeometry, sideMaterial);
-            rightMesh.position.set(-9.9, 1.0, 0); // x + 0.5 จากตำแหน่งโต๊ะ
+            rightMesh.position.set(-9.99, 1.0, 0); // x + 0.5 จากตำแหน่งโต๊ะ
             rightMesh.rotation.y = Math.PI / 2; // หมุน 90 องศา
             lightGroup.add(rightMesh);
 
             scene.add(lightGroup);
+
+            // เพิ่มโคมไฟฉุกเฉินไว้ข้างบนโต๊ะ
+            const emergencyGeometry = new THREE.BoxGeometry(0.3, 0.6, 0.6);
+            const emergencyMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+            const emergencyMesh = new THREE.Mesh(emergencyGeometry, emergencyMaterial);
+            emergencyMesh.position.set(-10.5, 2.7, 0);
+            scene.add(emergencyMesh);
+
+            const imgemergencyGeometry = new THREE.PlaneGeometry(0.6, 0.4);
+            const imgemergencyTexture = textureLoader.load('{% static "images/layout/Product01.png" %}');
+            const imgemergencyMaterial = new THREE.MeshBasicMaterial({
+                map: imgemergencyTexture,
+                transparent: true,
+                side: THREE.DoubleSide
+            });
+            const imgemergencyMesh = new THREE.Mesh(imgemergencyGeometry, imgemergencyMaterial);
+            imgemergencyMesh.position.set(-10.34, 2.7, 0); // เลื่อนมาเล็กน้อยด้านหน้า
+            imgemergencyMesh.rotation.y = -Math.PI / 2; // หมุนให้หันหน้าออกด้านหน้า
+            scene.add(imgemergencyMesh);
+
+            // เพิ่มโคมไฟฉันฉุกเฉินไว้ข้างบนโต๊ะ อันที่สอง
+            const emergencyMesh2 = new THREE.Mesh(emergencyGeometry, emergencyMaterial);
+            emergencyMesh2.position.set(-10.5, 2.7, -1);
+            scene.add(emergencyMesh2);
+            const imgemergencyMesh2 = new THREE.Mesh(imgemergencyGeometry, imgemergencyMaterial);
+            imgemergencyMesh2.position.set(-10.34, 2.7, -1); // เลื่อนมาเล็กน้อยด้านหน้า
+            imgemergencyMesh2.rotation.y = -Math.PI / 2; // หมุนให้หันหน้าออกด้านหน้า
+            scene.add(imgemergencyMesh2);
+
+            // เพิ่มโคมไฟฉันฉุกเฉินไว้ข้างบนโต๊ะ อันที่สาม
+            const emergencyMesh3 = new THREE.Mesh(emergencyGeometry, emergencyMaterial);
+            emergencyMesh3.position.set(-10.5, 2.7, 1);
+            scene.add(emergencyMesh3);
+            const imgemergencyMesh3 = new THREE.Mesh(imgemergencyGeometry, imgemergencyMaterial);
+            imgemergencyMesh3.position.set(-10.34, 2.7, 1); // เลื่อนมาเล็กน้อยด้านหน้า
+            imgemergencyMesh3.rotation.y = -Math.PI / 2; // หมุนให้หันหน้าออกด้านหน้า
+            scene.add(imgemergencyMesh3);
+
+            // เพิ่มโคมไฟฉันฉุกเฉินไว้ข้างบนโต๊ะ อันที่สี่
+            const emergencyMesh4 = new THREE.Mesh(emergencyGeometry, emergencyMaterial);
+            emergencyMesh4.position.set(-10.5, 2.7, 2);
+            scene.add(emergencyMesh4);
+            const imgemergencyMesh4 = new THREE.Mesh(imgemergencyGeometry, imgemergencyMaterial);
+            imgemergencyMesh4.position.set(-10.34, 2.7, 2); // เลื่อนมาเล็กน้อยด้านหน้า
+            imgemergencyMesh4.rotation.y = -Math.PI / 2; // หมุนให้หันหน้าออกด้านหน้า
+            scene.add(imgemergencyMesh4);
+
+            // เพิ่มโคมไฟฉันฉุกเฉินไว้ข้างบนโต๊ะ อันที่ห้า
+            const emergencyMesh5 = new THREE.Mesh(emergencyGeometry, emergencyMaterial);
+            emergencyMesh5.position.set(-10.5, 2.7, -2);
+            scene.add(emergencyMesh5);
+            const imgemergencyMesh5 = new THREE.Mesh(imgemergencyGeometry, imgemergencyMaterial);
+            imgemergencyMesh5.position.set(-10.34, 2.7, -2); // เลื่อนมาเล็กน้อยด้านหน้า
+            imgemergencyMesh5.rotation.y = -Math.PI / 2; // หมุนให้หันหน้าออกด้านหน้า
+            scene.add(imgemergencyMesh5);
+            
+        }
+
+        function createSolarCell() {
+            const solarGroup = new THREE.Group();
+            const textureLoader = new THREE.TextureLoader();
+
+            // สร้างโครงสร้างหลักของแผง Solar Cell
+            const solarGeometry = new THREE.BoxGeometry(4, 4, 0.1);
+            const solarMaterial = new THREE.MeshLambertMaterial({ 
+                color: 0x000000,
+                transparent: true,
+                opacity: 0.8
+            });
+            const solarMesh = new THREE.Mesh(solarGeometry, solarMaterial);
+            solarMesh.position.set(-8, 1.0, -5.89);
+            solarGroup.add(solarMesh);
+
+            // เพิ่มรูปภาพด้านหน้า
+            const frontGeometry = new THREE.PlaneGeometry(4, 4);
+            const frontTexture = textureLoader.load('{% static "images/layout/Solar Cell.png" %}');
+            const frontMaterial = new THREE.MeshBasicMaterial({
+                map: frontTexture,
+                transparent: true,
+                side: THREE.DoubleSide
+            });
+            const frontMesh = new THREE.Mesh(frontGeometry, frontMaterial);
+            frontMesh.position.set(-8, 1.0, -5.83); // z + 0.05 เพื่อให้อยู่ด้านหน้า
+
+            scene.add(solarGroup);
+            scene.add(frontMesh);
         }
 
         function createStore() {
@@ -567,7 +777,7 @@
                     const frontGeometry = new THREE.PlaneGeometry(shelf.width, shelf.height);
                     
                     // โหลดรูปภาพสำหรับด้านหน้า/หลัง
-                    const frontTexture = textureLoader.load('https://i.ibb.co/ksybcSdH/front.png'); //images/front.png
+                    const frontTexture = textureLoader.load('{% static "images/layout/front.png" %}'); //images/front.png
                     const frontMaterial = new THREE.MeshBasicMaterial({ 
                         map: frontTexture,
                         transparent: true,
@@ -650,6 +860,22 @@
             counterMesh.position.set(9.5, 0.5, 2);
             counterMesh.castShadow = true;
             scene.add(counterMesh);
+
+            // เพิ่มที่คิดเงิน
+            const cashierGeometry = new THREE.BoxGeometry(0.95, 0.5, 1);
+            const cashierMaterial = new THREE.MeshLambertMaterial({ color: 0xF5F5F5 });
+            const cashierMesh = new THREE.Mesh(cashierGeometry, cashierMaterial);
+            cashierMesh.position.set(9.5, 1, 0.8);
+            cashierMesh.castShadow = true;
+            scene.add(cashierMesh);
+
+            // เพิ่มเครื่องคิดเงินชั้นบน
+            const machineGeometry = new THREE.BoxGeometry(0.5, 1, 1);
+            const machineMaterial = new THREE.MeshLambertMaterial({ color: 0xF5F5F5 });
+            const machineMesh = new THREE.Mesh(machineGeometry, machineMaterial);
+            machineMesh.position.set(9.35, 1.3, 0.8);
+            machineMesh.castShadow = true;
+            scene.add(machineMesh);
         };
 
         function createEntranceExit() {
@@ -825,6 +1051,79 @@
                     camera.position.multiplyScalar(factor);
                 }
             });
+
+            // เพิ่ม Touch Events
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            renderer.domElement.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                touchStartX = touch.clientX;
+                touchStartY = touch.clientY;
+                isDragging = true;
+                previousMousePosition = { x: touch.clientX, y: touch.clientY };
+            }, false);
+
+            renderer.domElement.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (isDragging && cameraMode === 0) {
+                    const touch = e.touches[0];
+                    const deltaMove = {
+                        x: touch.clientX - previousMousePosition.x,
+                        y: touch.clientY - previousMousePosition.y
+                    };
+                    
+                    const spherical = new THREE.Spherical();
+                    spherical.setFromVector3(camera.position);
+                    spherical.theta -= deltaMove.x * 0.01;
+                    spherical.phi += deltaMove.y * 0.01;
+                    spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi));
+                    
+                    camera.position.setFromSpherical(spherical);
+                    camera.lookAt(0, 0, 0);
+                    
+                    previousMousePosition = { x: touch.clientX, y: touch.clientY };
+                }
+            }, false);
+
+            renderer.domElement.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                isDragging = false;
+            }, false);
+
+            // Pinch to zoom
+            let initialPinchDistance = null;
+            
+            renderer.domElement.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 2) {
+                    initialPinchDistance = getPinchDistance(e);
+                }
+            }, false);
+
+            renderer.domElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 2 && initialPinchDistance !== null) {
+                    const currentDistance = getPinchDistance(e);
+                    const scale = initialPinchDistance / currentDistance;
+                    
+                    if (cameraMode === 0) {
+                        camera.position.multiplyScalar(scale);
+                    }
+                    
+                    initialPinchDistance = currentDistance;
+                }
+            }, false);
+
+            renderer.domElement.addEventListener('touchend', () => {
+                initialPinchDistance = null;
+            }, false);
+        }
+
+        function getPinchDistance(e) {
+            return Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
         }
         
         function startSimulation() {
@@ -1021,11 +1320,22 @@
         
         function updateStats() {
             const stats = document.getElementById('stats');
+            
+            // คำนวณราคารวม
+            let total = 0;
+            cart.forEach(itemName => {
+                const product = productsList.find(p => p.name === itemName);
+                if (product) {
+                    total += product.price;
+                }
+            });
+            
             stats.innerHTML = `
                 <div>จุดปัจจุบัน: ${currentPathIndex}/${movementPath.length - 1}</div>
                 <div>สถานะ: ${isRunning ? (isPaused ? 'หยุดชั่วคราว' : isShoppping ? 'กำลังเลือกซื้อ' : 'กำลังเดิน') : 'หยุด'}</div>
                 <div>มุมกล้อง: ${['มุมมองรวม', 'ติดตาม', 'มุมมองคนเดิน'][cameraMode]}</div>
-                <div>สินค้าในรถเข็น: ${cart.join(', ')}</div>
+                <div>สินค้าในรถเข็น: <a style="color: #FF6045;">${cart.join(', ')}</a></div>
+                <div>ราคารวม: <span style="color: #FFD700;">${total} บาท</span></div>
                 <div style="color: #4CAF50;"> ${hasBag ? 'ถือถุงสินค้าออกจากร้านแล้ว' : ''}</div>
             `;
         }
